@@ -11,6 +11,13 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: RitenuteColors.ritenuteSecondaryColor,
+        onPressed: () {},
+        child: Icon(
+          Icons.list,
+        ),
+      ),
       appBar: AppBar(
         actions: [
           IconButton(
@@ -30,6 +37,7 @@ class HomeView extends StatelessWidget {
         ),
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Column(
             children: const [
@@ -44,8 +52,8 @@ class HomeView extends StatelessWidget {
               ),
             ],
           ),
+          Spacer(),
           Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               const InsertImport(),
               Padding(
@@ -71,9 +79,42 @@ class HomeView extends StatelessWidget {
                     ),
                   ],
                 ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: RitenuteMargins.ritenuteMarginVeryBig,
+                  vertical: RitenuteMargins.ritenuteMarginMedium,
+                ),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                        20,
+                      ),
+                    ),
+                    primary: RitenuteColors.ritenutePrimaryColor,
+                  ),
+                  onPressed: () {},
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: RitenuteMargins.ritenuteMarginBig),
+                        child: Text(
+                          "Calcola",
+                          style: ritenuteTheme().textTheme.headline3,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               )
             ],
-          )
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.15,
+          ),
         ],
       ),
     );
