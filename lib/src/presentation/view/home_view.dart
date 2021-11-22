@@ -14,7 +14,7 @@ class HomeView extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         backgroundColor: RitenuteColors.ritenuteSecondaryColor,
         onPressed: () {},
-        child: Icon(
+        child: const Icon(
           Icons.list,
         ),
       ),
@@ -37,9 +37,10 @@ class HomeView extends StatelessWidget {
         ),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Column(
+            mainAxisSize: MainAxisSize.min,
             children: const [
               TextCard(
                 text: 'Importo Bonifico',
@@ -52,8 +53,8 @@ class HomeView extends StatelessWidget {
               ),
             ],
           ),
-          Spacer(),
           Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               const InsertImport(),
               Padding(
@@ -111,9 +112,6 @@ class HomeView extends StatelessWidget {
                 ),
               )
             ],
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.15,
           ),
         ],
       ),
