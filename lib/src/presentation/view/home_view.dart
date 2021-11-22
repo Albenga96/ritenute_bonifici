@@ -46,8 +46,32 @@ class HomeView extends StatelessWidget {
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: const [
-              InsertImport(),
+            children: [
+              const InsertImport(),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: RitenuteMargins.ritenuteMarginVeryBig,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        'Netto',
+                        style: ritenuteTheme().textTheme.headline5,
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        'Lordo',
+                        style: ritenuteTheme().textTheme.headline5,
+                      ),
+                    ),
+                  ],
+                ),
+              )
             ],
           )
         ],

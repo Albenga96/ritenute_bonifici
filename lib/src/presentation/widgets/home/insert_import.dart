@@ -18,7 +18,6 @@ class _InsertImportState extends State<InsertImport> {
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: RitenuteMargins.ritenuteMarginVeryBig,
-        vertical: RitenuteMargins.ritenuteMarginMedium,
       ),
       child: Card(
         shape: RoundedRectangleBorder(
