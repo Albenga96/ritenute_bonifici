@@ -1,14 +1,26 @@
 part of 'ritenuta_cubit.dart';
 
 @immutable
-abstract class RitenutaState {
+class RitenutaState {
   final double amount;
   final double creditedAmount;
   final bool isNet;
 
-  const RitenutaState(this.amount, this.creditedAmount, this.isNet);
-}
+  const RitenutaState({
+    this.amount = 0,
+    this.creditedAmount = 0,
+    this.isNet = true,
+  });
 
-class RitenutaInitial extends RitenutaState {
-  const RitenutaInitial(double amount) : super(0, 0, true);
+  RitenutaState copyWith({
+    double? amount,
+    double? creditedAmount,
+    bool? isNet,
+  }) {
+    return RitenutaState(
+      amount: amount ?? this.amount,
+      creditedAmount: creditedAmount ?? this.creditedAmount,
+      isNet: isNet ?? this.isNet,
+    );
+  }
 }

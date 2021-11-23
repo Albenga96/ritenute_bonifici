@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ritenute_bonifici/src/presentation/blocs/cubit/ritenuta_cubit.dart';
 import 'package:ritenute_bonifici/src/presentation/widgets/home/insert_import.dart';
 import 'package:ritenute_bonifici/src/presentation/widgets/home/text_card.dart';
 import 'package:ritenute_bonifici/src/themes/app_theme.dart';
@@ -61,24 +63,36 @@ class HomeView extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(
                   horizontal: RitenuteMargins.ritenuteMarginVeryBig,
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        'Netto',
-                        style: ritenuteTheme().textTheme.headline5,
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        'Lordo',
-                        style: ritenuteTheme().textTheme.headline5,
-                      ),
-                    ),
-                  ],
+                child: BlocBuilder<RitenutaCubit, RitenutaState>(
+                  builder: (context, state) {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            context.read<RitenutaCubit>().updateGrossNet();
+                          },
+                          child: Text(
+                            'Netto',
+                            style: state.isNet
+                                ? ritenuteTheme().textTheme.headline4
+                                : ritenuteTheme().textTheme.headline5,
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            context.read<RitenutaCubit>().updateGrossNet();
+                          },
+                          child: Text(
+                            'Lordo',
+                            style: state.isNet
+                                ? ritenuteTheme().textTheme.headline5
+                                : ritenuteTheme().textTheme.headline4,
+                          ),
+                        ),
+                      ],
+                    );
+                  },
                 ),
               ),
               Padding(
