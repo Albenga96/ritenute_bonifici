@@ -10,4 +10,13 @@ class RitenutaCubit extends Cubit<RitenutaState> {
     bool isNet = state.isNet;
     emit(const RitenutaState().copyWith(isNet: !isNet));
   }
+
+  void updateImport(double amount) {
+    emit(const RitenutaState().copyWith(amount: amount));
+  }
+
+  void calculate() {
+    emit(const RitenutaState()
+        .copyWith(creditedAmount: state.amount + 10, amount: state.amount));
+  }
 }

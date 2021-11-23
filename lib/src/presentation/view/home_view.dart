@@ -45,12 +45,16 @@ class HomeView extends StatelessWidget {
             children: [
               Column(
                 mainAxisSize: MainAxisSize.min,
-                children: const [
+                children: [
                   TextCard(
-                    text: 'Importo Bonifico',
+                    text: state.amount == 0
+                        ? 'Importo Bonifico'
+                        : "${state.amount}",
                   ),
                   TextCard(
-                    text: 'Importo Accreditato',
+                    text: state.creditedAmount == 0
+                        ? 'Importo Bonifico'
+                        : "${state.creditedAmount}",
                   ),
                   TextCard(
                     text: 'Ritenuta',
@@ -107,7 +111,9 @@ class HomeView extends StatelessWidget {
                         ),
                         primary: RitenuteColors.ritenutePrimaryColor,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        context.read<RitenutaCubit>().calculate();
+                      },
                       child: SizedBox(
                         width: double.infinity,
                         child: Center(
