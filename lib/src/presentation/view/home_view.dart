@@ -38,34 +38,34 @@ class HomeView extends StatelessWidget {
           style: ritenuteTheme().textTheme.headline1,
         ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: const [
-              TextCard(
-                text: 'Importo Bonifico',
-              ),
-              TextCard(
-                text: 'Importo Accreditato',
-              ),
-              TextCard(
-                text: 'Ritenuta',
-              ),
-            ],
-          ),
-          Column(
-            mainAxisSize: MainAxisSize.min,
+      body: BlocBuilder<RitenutaCubit, RitenutaState>(
+        builder: (context, state) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              const InsertImport(),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: RitenuteMargins.ritenuteMarginVeryBig,
-                ),
-                child: BlocBuilder<RitenutaCubit, RitenutaState>(
-                  builder: (context, state) {
-                    return Row(
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  TextCard(
+                    text: 'Importo Bonifico',
+                  ),
+                  TextCard(
+                    text: 'Importo Accreditato',
+                  ),
+                  TextCard(
+                    text: 'Ritenuta',
+                  ),
+                ],
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const InsertImport(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: RitenuteMargins.ritenuteMarginVeryBig,
+                    ),
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         TextButton(
@@ -91,43 +91,45 @@ class HomeView extends StatelessWidget {
                           ),
                         ),
                       ],
-                    );
-                  },
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: RitenuteMargins.ritenuteMarginVeryBig,
-                  vertical: RitenuteMargins.ritenuteMarginMedium,
-                ),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                        20,
-                      ),
                     ),
-                    primary: RitenuteColors.ritenutePrimaryColor,
                   ),
-                  onPressed: () {},
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: RitenuteMargins.ritenuteMarginBig),
-                        child: Text(
-                          "Calcola",
-                          style: ritenuteTheme().textTheme.headline3,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: RitenuteMargins.ritenuteMarginVeryBig,
+                      vertical: RitenuteMargins.ritenuteMarginMedium,
+                    ),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                            20,
+                          ),
+                        ),
+                        primary: RitenuteColors.ritenutePrimaryColor,
+                      ),
+                      onPressed: () {},
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: RitenuteMargins.ritenuteMarginBig),
+                            child: Text(
+                              state.isNet
+                                  ? "Calcola da Netto"
+                                  : "Calcola da Lordo",
+                              style: ritenuteTheme().textTheme.headline3,
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ),
-              )
+                  )
+                ],
+              ),
             ],
-          ),
-        ],
+          );
+        },
       ),
     );
   }
