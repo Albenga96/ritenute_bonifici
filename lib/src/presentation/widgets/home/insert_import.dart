@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:ritenute_bonifici/src/themes/app_theme.dart';
 import 'package:ritenute_bonifici/src/themes/ritenute_margins.dart';
 
@@ -31,7 +32,10 @@ class _InsertImportState extends State<InsertImport> {
           ),
           child: TextFormField(
             controller: _controller,
-            keyboardType: TextInputType.number,
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+            ],
+            keyboardType: const TextInputType.numberWithOptions(decimal: true),
             decoration: InputDecoration(
               border: InputBorder.none,
               suffixIcon: IconButton(
