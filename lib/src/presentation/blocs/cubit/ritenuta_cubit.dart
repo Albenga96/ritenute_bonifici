@@ -8,20 +8,43 @@ class RitenutaCubit extends Cubit<RitenutaState> {
 
   void updateGrossNet() {
     bool isNet = state.isNet;
-    emit(const RitenutaState().copyWith(isNet: !isNet));
+    emit(
+      const RitenutaState().copyWith(
+        isNet: !isNet,
+        amount: state.creditedAmount,
+        creditedAmount: state.amount,
+      ),
+    );
   }
 
   void updateImport(double amount) {
-    emit(const RitenutaState().copyWith(amount: amount, isNet: state.isNet));
+    emit(
+      const RitenutaState().copyWith(
+        amount: !state.isNet ? amount : state.amount,
+        isNet: state.isNet,
+        creditedAmount: state.isNet ? amount : state.creditedAmount,
+      ),
+    );
   }
 
   void calculate() {
+    double prop = (1 + (state.taxRate / 100) - (state.withholdingRate / 100)) /
+        (1 + (state.taxRate / 100));
     emit(
       const RitenutaState().copyWith(
-        creditedAmount: state.amount + 10,
-        amount: state.amount,
-        isNet: state.isNet,
-      ),
+          creditedAmount:
+              state.isNet ? state.creditedAmount : state.amount * prop,
+          amount: !state.isNet ? state.amount : state.creditedAmount / prop,
+          isNet: state.isNet,
+          withholding: state.isNet
+              ? state.creditedAmount * (1 / prop - 1)
+              : state.amount * (1 / prop - 1)),
+    );
+  }
+
+  void clear() {
+    emit(
+      const RitenutaState(),
     );
   }
 }

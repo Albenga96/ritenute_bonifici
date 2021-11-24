@@ -49,15 +49,17 @@ class HomeView extends StatelessWidget {
                   TextCard(
                     text: state.amount == 0
                         ? 'Importo Bonifico'
-                        : "${state.amount}",
+                        : state.amount.toStringAsFixed(2),
                   ),
                   TextCard(
                     text: state.creditedAmount == 0
-                        ? 'Importo Bonifico'
-                        : "${state.creditedAmount}",
+                        ? 'Bonifico Accreditato'
+                        : state.creditedAmount.toStringAsFixed(2),
                   ),
                   TextCard(
-                    text: 'Ritenuta',
+                    text: state.withholding == 0
+                        ? 'Ritenuta'
+                        : state.withholding.toStringAsFixed(2),
                   ),
                 ],
               ),

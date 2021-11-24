@@ -42,7 +42,7 @@ class _InsertImportState extends State<InsertImport> {
                       .updateImport(double.parse(value));
                 },
                 controller: _controller,
-                inputFormatters: [
+                inputFormatters: <TextInputFormatter>[
                   FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
                 ],
                 keyboardType:
@@ -52,6 +52,7 @@ class _InsertImportState extends State<InsertImport> {
                   suffixIcon: IconButton(
                     onPressed: () {
                       _controller.clear();
+                      context.read<RitenutaCubit>().clear();
                     },
                     icon: const Icon(Icons.clear),
                   ),
