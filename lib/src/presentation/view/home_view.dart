@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ritenute_bonifici/src/presentation/blocs/cubit/ritenuta_cubit.dart';
+import 'package:ritenute_bonifici/src/presentation/view/tax_edit_view.dart';
 import 'package:ritenute_bonifici/src/presentation/widgets/home/insert_import.dart';
 import 'package:ritenute_bonifici/src/presentation/widgets/home/text_card.dart';
 import 'package:ritenute_bonifici/src/themes/app_theme.dart';
@@ -23,10 +24,17 @@ class HomeView extends StatelessWidget {
       appBar: AppBar(
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              FocusScope.of(context).requestFocus(FocusNode());
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (ctx) => const TaxEditView(),
+                ),
+              );
+            },
             icon: const Icon(
               Icons.settings,
-              color: RitenuteColors.ritenuteSecondaryColor,
+              color: RitenuteColors.ritenuteTextColor,
             ),
           )
         ],
