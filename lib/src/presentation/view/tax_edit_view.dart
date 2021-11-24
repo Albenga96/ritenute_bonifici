@@ -68,6 +68,13 @@ class TaxEditView extends StatelessWidget {
                 ],
               ),
               const SizedBox(
+                height: RitenuteMargins.ritenuteMarginVeryBig,
+              ),
+              Text(
+                'Aliquota Ritenuta',
+                style: ritenuteTheme().textTheme.headline5,
+              ),
+              const SizedBox(
                 height: RitenuteMargins.ritenuteMarginBig,
               ),
               Row(

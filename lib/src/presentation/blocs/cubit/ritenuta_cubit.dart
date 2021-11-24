@@ -61,8 +61,10 @@ class RitenutaCubit extends Cubit<RitenutaState> {
             : emit(
                 const RitenutaState().copyWith(
                   withholdingRate: state.withholdingRate,
-                  taxRate:
-                      double.parse((state.taxRate - 0.1).toStringAsFixed(2)),
+                  taxRate: double.parse((state.taxRate > 0.1
+                          ? state.taxRate - 0.1
+                          : state.taxRate)
+                      .toStringAsFixed(2)),
                 ),
               )
         : up
@@ -76,8 +78,10 @@ class RitenutaCubit extends Cubit<RitenutaState> {
             : emit(
                 const RitenutaState().copyWith(
                   taxRate: state.taxRate,
-                  withholdingRate: double.parse(
-                      (state.withholdingRate - 0.1).toStringAsFixed(2)),
+                  withholdingRate: double.parse((state.withholdingRate > 0.1
+                          ? state.withholdingRate - 0.1
+                          : state.withholdingRate)
+                      .toStringAsFixed(2)),
                 ),
               );
   }
