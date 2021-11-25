@@ -1,12 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ritenute_bonifici/src/presentation/blocs/cubit/ritenuta_cubit.dart';
+import 'package:ritenute_bonifici/src/presentation/widgets/settings/circle_icon_button.dart';
 import 'package:ritenute_bonifici/src/themes/app_theme.dart';
 import 'package:ritenute_bonifici/src/themes/ritenute_colors.dart';
 import 'package:ritenute_bonifici/src/themes/ritenute_margins.dart';
 
-class TaxEditView extends StatelessWidget {
+class TaxEditView extends StatefulWidget {
   const TaxEditView({Key? key}) : super(key: key);
+
+  @override
+  State<TaxEditView> createState() => _TaxEditViewState();
+}
+
+class _TaxEditViewState extends State<TaxEditView> {
+  @override
+  void initState() {
+    context.read<RitenutaCubit>().retrieveTaxes();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -113,35 +125,6 @@ class TaxEditView extends StatelessWidget {
             ],
           );
         },
-      ),
-    );
-  }
-}
-
-class CircleIconButton extends StatelessWidget {
-  const CircleIconButton({
-    Key? key,
-    required this.icon,
-    required this.onPressed,
-  }) : super(key: key);
-
-  final IconData icon;
-  final VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        shape: const CircleBorder(),
-        primary: RitenuteColors.ritenuteSecondaryColor,
-      ),
-      onPressed: onPressed,
-      child: Padding(
-        padding: const EdgeInsets.all(RitenuteMargins.ritenuteMarginMedium),
-        child: Icon(
-          icon,
-          color: RitenuteColors.ritenuteTextColor,
-        ),
       ),
     );
   }

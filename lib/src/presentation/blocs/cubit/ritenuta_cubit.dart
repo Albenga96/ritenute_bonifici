@@ -1,5 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:sqflite/sqlite_api.dart';
 
 part 'ritenuta_state.dart';
 
@@ -48,7 +51,7 @@ class RitenutaCubit extends Cubit<RitenutaState> {
     );
   }
 
-  void setTax(bool up, bool isTax) {
+  void setTax(bool up, bool isTax) async {
     isTax
         ? up
             ? emit(
@@ -84,5 +87,41 @@ class RitenutaCubit extends Cubit<RitenutaState> {
                       .toStringAsFixed(2)),
                 ),
               );
+    await insertTaxes();
+  }
+
+  Future<Database> get _database async {
+    return openDatabase(
+      join(
+        await getDatabasesPath(),
+        "taxes_database",
+      ),
+      onCreate: (db, version) {
+        return db.execute(
+          'CREATE TABLE taxes(taxRate TEXT, withholdingRate TEXT)',
+        );
+      },
+      version: 1,
+    );
+  }
+
+  @override
+  Future<void> insertTaxes() async {
+    final db = await _database;
+    await db.insert(
+      "taxes",
+      {'taxRate': state.taxRate, 'withholdingRate': state.withholdingRate},
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  void retrieveTaxes() async {
+    final db = await _database;
+    final List<Map<String, dynamic>> maps = await db.query("taxes");
+    maps.forEach((element) {
+      emit(const RitenutaState().copyWith(
+          taxRate: double.parse(element['taxRate']),
+          withholdingRate: double.parse(element['withholdingRate'])));
+    });
   }
 }
